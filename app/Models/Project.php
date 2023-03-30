@@ -17,11 +17,23 @@ class Project extends Model
         'type_id'
     ];
 
+    protected $appends = ['img_path'];
+
     public function type() {
         return $this->belongsTo(Type::class);
     }
 
     public function technologies() {
         return $this->belongsToMany(Technology::class);
+    }
+
+    public function getImgPathAttributes() {
+        $imgPath = null;
+
+        if($this->img) {
+            $imgPath = asset('storage/'.$this->img);
+        }
+
+        return $imgPath;
     }
 }
